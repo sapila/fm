@@ -1,23 +1,28 @@
 <?php 
 
-//namespace Silver\Support;
 
-/**
-* 
-*/
-class ClassName
-{
-	
-}
+// $_POST = array('username' => 'nikos', 
+//                'password' => 'pass');
 
- <?php
 
-$_POST = array('username' => 'nikos', 
-               'password' => 'pass');
+
+
+// echo Validator::check($_POST,array(
+//     'username' => 'required|isemail',
+//     'password' => 'required|isemail'
+// )) ;
 
 class  Validator {
     
-    public static function check(array $data, array $rules){
+    public static function check(array $rules){
+
+        if(!empty($_POST))
+        {
+            $_methode = $_POST;
+
+        }else{
+            $_methode = $_GET;
+        }
         
         foreach ($rules as $key => $value) {
             //parse rules for every item
@@ -27,10 +32,10 @@ class  Validator {
                 //execute for every parsed rule
                     switch ($rule) {
                         case 'required':
-                             echo 'check if ' . $data[$key] . ' is required<br>';
+                             echo 'check if ' . $_methode[$key] . ' is required<br>';
                             break;
                         case 'isemail':
-                             echo 'check if ' . $data[$key] . ' is mail <br>';;
+                             echo 'check if ' . $_methode[$key] . ' is mail <br>';;
                             break;
                         default:
                             echo 'error';
@@ -41,11 +46,3 @@ class  Validator {
         return "done";
     }
 }
-
-
-echo Validator::check($_POST,array(
-    'username' => 'required|isemail',
-    'password' => 'required|isemail'
-)) ;
-
-?>
