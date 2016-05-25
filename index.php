@@ -34,10 +34,16 @@ echo $_POST['username'] . "<br>";
 
 
 
-echo Validator::check(array(
-    'username' => 'required|isemail',
+$isValid = Validator::check(array(
+    'username' => 'required',
     'password' => 'required|isemail'
 )) ;
+
+if($isValid){
+	echo 'valid';
+}else{
+	echo 'not valid';
+}
 
 echo "<form method='POST'>
         <input name='username'/>

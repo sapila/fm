@@ -24,6 +24,8 @@ class  Validator {
             $_methode = $_GET;
         }
         
+        $isValid = true ;
+
         foreach ($rules as $key => $value) {
             //parse rules for every item
             $itemRules = explode("|",$value);
@@ -32,9 +34,15 @@ class  Validator {
                 //execute for every parsed rule
                     switch ($rule) {
                         case 'required':
+                            if(empty($_methode[$key])){
+                                $isValid = false;
+                            }
                              echo 'check if ' . $_methode[$key] . ' is required<br>';
                             break;
                         case 'isemail':
+                            if(!filter_var($_methode[$key], FILTER_VALIDATE_EMAIL)){
+                                $isValid = false;
+                            }
                              echo 'check if ' . $_methode[$key] . ' is mail <br>';;
                             break;
                         default:
@@ -43,6 +51,6 @@ class  Validator {
             }            
         }
         
-        return "done";
+        return $isValid;
     }
 }
